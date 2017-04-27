@@ -65,8 +65,8 @@ public class Player : NetworkBehaviour {
     void onZeroHealth()
     {
         Debug.Log("Player is destroyed");
-        Strike strike = mStrikeManager.getNext() as Strike;
-        strike.activate(transform.position, mStrikeManager);
+        //Strike strike = mStrikeManager.getNext() as Strike;
+        //strike.activate(transform.position, mStrikeManager);
 
         //GameObject.Destroy(gameObject);
     }

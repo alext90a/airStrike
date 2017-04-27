@@ -14,11 +14,15 @@ public class Enemy : Respawnable {
 	void Start () {
         mHealth.setDeathFunc(onZeroHealth);
         mHealth.setCurrentHealth(GameConstants.kEnemyStartHealth);
+        mStrikeManager = GameManager.getInstance().getStrikeStore();
 	}
 	
 	// Update is called once per frame
 	protected override void Update () {
-
+        if(!isServer)
+        {
+            return;
+        }
         transform.position += mCurSpeed * Time.deltaTime;
 
         base.Update();
@@ -27,13 +31,17 @@ public class Enemy : Respawnable {
 
     void onZeroHealth()
     {
-        Strike strike = mStrikeManager.getNext() as Strike;
-        strike.activate(transform.position, mStrikeManager);
+        //Strike strike = mStrikeManager.getNext() as Strike;
+        //strike.activate(transform.position, mStrikeManager);
         deactivate();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!isServer)
+        {
+            return;
+        }
         if(other.CompareTag(GameConstants.kPlayerTag))
         {
             Health health = other.GetComponent<Health>();
