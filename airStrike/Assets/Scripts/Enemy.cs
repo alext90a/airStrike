@@ -5,6 +5,8 @@ public class Enemy : Respawnable {
 
     [SerializeField]
     Health mHealth = null;
+    [SerializeField]
+    RespawnableManager mStrikeManager = null;
 
     Vector3 mCurSpeed = new Vector3(0f, 0f, -1f);
 
@@ -19,12 +21,14 @@ public class Enemy : Respawnable {
 
         transform.position += mCurSpeed * Time.deltaTime;
 
-        //base.Update();
+        base.Update();
 	
 	}
 
     void onZeroHealth()
     {
+        Strike strike = mStrikeManager.getNext() as Strike;
+        strike.activate(transform.position, mStrikeManager);
         deactivate();
     }
 
@@ -34,7 +38,7 @@ public class Enemy : Respawnable {
         {
             Health health = other.GetComponent<Health>();
             health.decreaseHealth(GameConstants.kEnemyDamage);
-            deactivate();
+            onZeroHealth();
         }
     }
 }

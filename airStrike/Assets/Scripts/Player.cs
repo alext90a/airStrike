@@ -8,9 +8,10 @@ public class Player : MonoBehaviour {
     Health mHealth = null;
     [SerializeField]
     Weapon mCurWeapon = null;
-
     [SerializeField]
     Text mScoreText = null;
+    [SerializeField]
+    RespawnableManager mStrikeManager = null;
 
     int mCurScore = 0;
 	// Use this for initialization
@@ -51,6 +52,9 @@ public class Player : MonoBehaviour {
     void onZeroHealth()
     {
         Debug.Log("Player is destroyed");
+        Strike strike = mStrikeManager.getNext() as Strike;
+        strike.activate(transform.position, mStrikeManager);
+
         GameObject.Destroy(gameObject);
     }
 

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Bullet : Respawnable {
 
+    
+
     int mDamage = 1;
 
     Vector3 mCurVelocity = new Vector3();
@@ -33,6 +35,8 @@ public class Bullet : Respawnable {
             }
             mTargetAcquiredFunc();
             deactivate();
+
+            
         }
     }
 

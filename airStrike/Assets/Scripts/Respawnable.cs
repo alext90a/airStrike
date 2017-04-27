@@ -5,7 +5,7 @@ public class Respawnable : MonoBehaviour
 {
     protected RespawnableManager mManager;
 
-    public void activate(Vector3 startPosition, RespawnableManager ownerManager)
+    public virtual void activate(Vector3 startPosition, RespawnableManager ownerManager)
     {
         gameObject.SetActive(true);
         gameObject.transform.position = startPosition;

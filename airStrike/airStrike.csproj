@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ExplosiveRealPack\Scripts\EffectLight.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
@@ -71,7 +72,11 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Respawnable.cs" />
     <Compile Include="Assets\Scripts\RespawnableManager.cs" />
+    <Compile Include="Assets\Scripts\Strike.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\ExplosiveRealPack\Shaders\Particle Refraction.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
