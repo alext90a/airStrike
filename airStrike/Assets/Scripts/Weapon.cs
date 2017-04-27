@@ -16,10 +16,11 @@ public class Weapon : MonoBehaviour {
 	
 	}
 
-    public void launchBullet()
+    public void launchBullet(Bullet.onTargetAcquired func)
     {
         Bullet bullet = mSpawnManager.getNext() as Bullet;
         bullet.activate(transform.position, mSpawnManager);
         bullet.setVelocity(transform.forward * GameConstants.kBulletStartSpeed);
+        bullet.setTargetAcquiredFunc(func);
     }
 }

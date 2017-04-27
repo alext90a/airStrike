@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour {
@@ -8,6 +9,10 @@ public class Player : MonoBehaviour {
     [SerializeField]
     Weapon mCurWeapon = null;
 
+    [SerializeField]
+    Text mScoreText = null;
+
+    int mCurScore = 0;
 	// Use this for initialization
 	void Start () {
         mHealth.setCurrentHealth(GameConstants.kPlayerStartHealth);
@@ -39,12 +44,18 @@ public class Player : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            mCurWeapon.launchBullet();
+            mCurWeapon.launchBullet(addScore);
         }
 	}
 
     void onZeroHealth()
     {
         Debug.Log("Player is destroyed");
+    }
+
+    void addScore()
+    {
+        mCurScore += 10;
+        mScoreText.text = mCurScore.ToString();
     }
 }

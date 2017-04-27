@@ -16,4 +16,14 @@ public class Respawnable : MonoBehaviour
         gameObject.SetActive(false);
         mManager.setToStore(this);
     }
+
+    protected virtual void Update()
+    {
+        Vector3 curPostion = transform.position;
+        if (curPostion.x < GameConstants.kLeftBorder || curPostion.z > GameConstants.kRightBorder
+            || curPostion.z < GameConstants.kBottomBorder || curPostion.z > GameConstants.kTopBorder)
+        {
+            deactivate();
+        }
+    }
 }

@@ -6,22 +6,20 @@ public class Bullet : Respawnable {
     int mDamage = 1;
 
     Vector3 mCurVelocity = new Vector3();
+
+    public delegate void onTargetAcquired();
+    onTargetAcquired mTargetAcquiredFunc = null;
 	// Use this for initialization
 	void Start () {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected override void Update () {
 
         transform.position += mCurVelocity * Time.deltaTime;
-
-        Vector3 curPostion = transform.position;
-        if(curPostion.x < GameConstants.kLeftBorder || curPostion.z > GameConstants.kRightBorder
-            || curPostion.z < GameConstants.kBottomBorder || curPostion.z > GameConstants.kTopBorder)
-        {
-            deactivate();
-        }
+        base.Update();
+        
 	}
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +31,7 @@ public class Bullet : Respawnable {
             {
                 health.addHealth(-mDamage);
             }
+            mTargetAcquiredFunc();
             deactivate();
         }
     }
@@ -40,5 +39,10 @@ public class Bullet : Respawnable {
     public void setVelocity(Vector3 velocity)
     {
         mCurVelocity = velocity;
+    }
+
+    public void setTargetAcquiredFunc(onTargetAcquired func)
+    {
+        mTargetAcquiredFunc = func;
     }
 }

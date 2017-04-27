@@ -18,4 +18,7 @@ public class GameConstants
     public static int kObjAmount = 20;
 
     public static float kBulletStartSpeed = 7f;
+
+    public static float kEnemyAppearInterval = 2f;
+    public static int kEnemyStartHealth = 1;
 }
