@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : NetworkBehaviour {
 
     [SerializeField]
     Health mHealth = null;
@@ -16,12 +17,19 @@ public class Player : MonoBehaviour {
     int mCurScore = 0;
 	// Use this for initialization
 	void Start () {
+        mStrikeManager = GameManager.getInstance().getStrikeStore();
+        mScoreText = GameManager.getInstance().getPlayerScoreText();
         mHealth.setCurrentHealth(GameConstants.kPlayerStartHealth);
         mHealth.setDeathFunc(onZeroHealth);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
 
         Vector3 curPos = transform.position;
         if(Input.GetKey(KeyCode.A))
@@ -55,12 +63,17 @@ public class Player : MonoBehaviour {
         Strike strike = mStrikeManager.getNext() as Strike;
         strike.activate(transform.position, mStrikeManager);
 
-        GameObject.Destroy(gameObject);
+        //GameObject.Destroy(gameObject);
     }
 
     void addScore()
     {
         mCurScore += 10;
         mScoreText.text = mCurScore.ToString();
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
     }
 }
