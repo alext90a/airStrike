@@ -16,10 +16,7 @@ public class Health : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(mCurHealth <= 0f)
-        {
-            mDeathFunc();
-        }
+        
 	
 	}
 
@@ -31,6 +28,15 @@ public class Health : MonoBehaviour {
     public void addHealth(int addedValue)
     {
         mCurHealth += addedValue;
+    }
+
+    public void decreaseHealth(int decreaseValue)
+    {
+        mCurHealth -= decreaseValue;
+        if (mCurHealth <= 0f)
+        {
+            mDeathFunc();
+        }
     }
 
     public void setDeathFunc(onHealthZero func)

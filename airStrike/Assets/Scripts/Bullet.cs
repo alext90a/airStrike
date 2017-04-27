@@ -29,7 +29,7 @@ public class Bullet : Respawnable {
             Health health = other.GetComponent<Health>();
             if(health != null)
             {
-                health.addHealth(-mDamage);
+                health.decreaseHealth(mDamage);
             }
             mTargetAcquiredFunc();
             deactivate();

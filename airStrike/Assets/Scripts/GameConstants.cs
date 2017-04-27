@@ -21,4 +21,5 @@ public class GameConstants
 
     public static float kEnemyAppearInterval = 2f;
     public static int kEnemyStartHealth = 1;
+    public static int kEnemyDamage = 1;
 }

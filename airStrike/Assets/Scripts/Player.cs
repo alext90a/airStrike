@@ -51,6 +51,7 @@ public class Player : MonoBehaviour {
     void onZeroHealth()
     {
         Debug.Log("Player is destroyed");
+        GameObject.Destroy(gameObject);
     }
 
     void addScore()

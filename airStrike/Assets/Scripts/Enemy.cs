@@ -27,4 +27,14 @@ public class Enemy : Respawnable {
     {
         deactivate();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag(GameConstants.kPlayerTag))
+        {
+            Health health = other.GetComponent<Health>();
+            health.decreaseHealth(GameConstants.kEnemyDamage);
+            deactivate();
+        }
+    }
 }
