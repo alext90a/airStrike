@@ -3,9 +3,13 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+    [SerializeField]
+    Health mHealth = null;
+
 	// Use this for initialization
 	void Start () {
-	
+        mHealth.setCurrentHealth(GameConstants.kPlayerStartHealth);
+        mHealth.setDeathFunc(onZeroHealth);
 	}
 	
 	// Update is called once per frame
@@ -31,4 +35,9 @@ public class Player : MonoBehaviour {
         }
         transform.position = curPos;
 	}
+
+    void onZeroHealth()
+    {
+        Debug.Log("Player is destroyed");
+    }
 }
