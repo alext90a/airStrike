@@ -55,6 +55,11 @@ public class Player : NetworkBehaviour {
         {
             mCurWeapon.launchBullet(addScore);
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 	}
 
     void onZeroHealth()
