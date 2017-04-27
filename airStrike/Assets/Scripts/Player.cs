@@ -5,6 +5,8 @@ public class Player : MonoBehaviour {
 
     [SerializeField]
     Health mHealth = null;
+    [SerializeField]
+    Weapon mCurWeapon = null;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +36,11 @@ public class Player : MonoBehaviour {
             curPos.x = GameConstants.kRightBorder;
         }
         transform.position = curPos;
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            mCurWeapon.launchBullet();
+        }
 	}
 
     void onZeroHealth()

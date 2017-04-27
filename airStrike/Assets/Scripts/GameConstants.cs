@@ -14,4 +14,8 @@ public class GameConstants
 
     public static string kPlayerTag = "Player";
     public static string kEnemyTag = "Enemy";
+
+    public static int kObjAmount = 20;
+
+    public static float kBulletStartSpeed = 7f;
 }
