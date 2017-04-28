@@ -4,7 +4,7 @@ using System.Collections;
 public class Strike : Respawnable
 {
     [SerializeField]
-    ParticleSystem mParticleSystem;
+    ParticleSystem mParticleSystem = null;
 
     float mTimeSinceStart = 0f;
     float mDisplayTime = 0f;
@@ -18,7 +18,11 @@ public class Strike : Respawnable
 	// Update is called once per frame
 	protected override void Update ()
     {
-        
+     
+        if(!isServer)
+        {
+            return;
+        }   
         mTimeSinceStart += Time.deltaTime;
         if(mTimeSinceStart > mDisplayTime)
         {
@@ -33,5 +37,18 @@ public class Strike : Respawnable
     {
         base.activate(startPosition, ownerManager);
         mTimeSinceStart = 0f;
+    }
+
+    protected override void showObject(bool isVisible)
+    {
+        enabled = isVisible;
+        if(isVisible)
+        {
+            mParticleSystem.Play();
+        }
+        else
+        {
+            mParticleSystem.Stop();
+        }
     }
 }

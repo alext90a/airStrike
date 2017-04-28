@@ -6,6 +6,8 @@ public class Respawnable : NetworkBehaviour
 {
     [SerializeField]
     GameObject mVisualObject = null;
+    
+
 
     protected RespawnableManager mManager;
 
@@ -13,17 +15,20 @@ public class Respawnable : NetworkBehaviour
     [SyncVar]
     bool mIsVisible = false;
 
+    Collider mCollider;
 
+    private void Awake()
+    {
+        mCollider = GetComponent<Collider>();
+    }
 
     public virtual void activate(Vector3 startPosition, RespawnableManager ownerManager)
     {
         mIsVisible = true;
-        //gameObject.SetActive(true);
-        enabled = mIsVisible;
         gameObject.transform.position = startPosition;
         mManager = ownerManager;
         RpcChangeVisible(true, startPosition);
-        mVisualObject.SetActive(true);
+        showObject(true);
     }
     protected void deactivate()
     {
@@ -31,14 +36,13 @@ public class Respawnable : NetworkBehaviour
         curPos.z = 100;
         transform.position = curPos;
         mIsVisible = false;
-        enabled = mIsVisible;
-        //gameObject.SetActive(false);
+        
         if(mManager != null)
         {
             mManager.setToStore(this);
         }
         RpcChangeVisible(false, transform.position);
-        mVisualObject.SetActive(false);
+        showObject(false);
     }
 
     protected virtual void Update()
@@ -55,19 +59,24 @@ public class Respawnable : NetworkBehaviour
         }
     }
 
-    
-    void OnChangeVisible(bool isVisible)
-    {
-        mIsVisible = isVisible;
-        //gameObject.SetActive(mIsVisible);
-        enabled = mIsVisible;
-    }
-
     [ClientRpc]
     public void RpcChangeVisible(bool isVisible, Vector3 startPosition)
     {
         transform.position = startPosition;
+        showObject(isVisible);
+    }
+
+    protected virtual void showObject(bool isVisible)
+    {
         enabled = isVisible;
-        mVisualObject.SetActive(isVisible);
+        if(mVisualObject != null)
+        {
+            mVisualObject.SetActive(isVisible);
+        }
+        if(mCollider != null)
+        {
+            mCollider.enabled = isVisible;
+        }
+        
     }
 }

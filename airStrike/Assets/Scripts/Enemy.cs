@@ -29,8 +29,8 @@ public class Enemy : Respawnable {
 
     void onZeroHealth()
     {
-        //Strike strike = mStrikeManager.getNext() as Strike;
-        //strike.activate(transform.position, mStrikeManager);
+        Strike strike = mStrikeManager.getNext() as Strike;
+        strike.activate(transform.position, mStrikeManager);
         deactivate();
     }
 

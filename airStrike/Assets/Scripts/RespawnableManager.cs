@@ -37,7 +37,7 @@ public class RespawnableManager : NetworkBehaviour {
     {
         for (int i = 0; i < GameConstants.kObjAmount; ++i)
         {
-            GameObject gameObj = GameObject.Instantiate(mPrefabObj) as GameObject;
+            GameObject gameObj = GameObject.Instantiate(mPrefabObj, transform) as GameObject;
             mObjectStore.AddLast(gameObj.GetComponent<Respawnable>());            
             NetworkServer.Spawn(gameObj);
         }

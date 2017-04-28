@@ -91,10 +91,7 @@ public class Player : NetworkBehaviour {
     [Command]
     void CmdOnNewPlayerOnServer()
     {
-        if(!isServer)
-        {
-            return;
-        }
+        
         Debug.Log("New player on server");
         GameManager.getInstance().getEnemyManager().updateEnemyPositions();
     }
