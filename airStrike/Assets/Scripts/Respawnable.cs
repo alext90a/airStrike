@@ -6,9 +6,10 @@ public class Respawnable : NetworkBehaviour
 {
     protected RespawnableManager mManager;
 
-    [SyncVar(hook = "OnChangeVisible")]
+    //[SyncVar(hook = "OnChangeVisible")]
+    [SyncVar]
     bool mIsVisible = false;
-
+    
     public virtual void activate(Vector3 startPosition, RespawnableManager ownerManager)
     {
         mIsVisible = true;
@@ -16,6 +17,7 @@ public class Respawnable : NetworkBehaviour
         enabled = mIsVisible;
         gameObject.transform.position = startPosition;
         mManager = ownerManager;
+        RpcChangeVisible(true, startPosition);
     }
     protected void deactivate()
     {
@@ -29,11 +31,15 @@ public class Respawnable : NetworkBehaviour
         {
             mManager.setToStore(this);
         }
-        
+        RpcChangeVisible(false, transform.position);
     }
 
     protected virtual void Update()
     {
+        if(!isServer)
+        {
+            return;
+        }
         Vector3 curPostion = transform.position;
         if (curPostion.x < GameConstants.kLeftBorder || curPostion.z > GameConstants.kRightBorder
             || curPostion.z < GameConstants.kBottomBorder || curPostion.z > GameConstants.kTopBorder)
@@ -49,5 +55,11 @@ public class Respawnable : NetworkBehaviour
         //gameObject.SetActive(mIsVisible);
         enabled = mIsVisible;
     }
-    
+
+    [ClientRpc]
+    void RpcChangeVisible(bool isVisible, Vector3 startPosition)
+    {
+        transform.position = startPosition;
+        enabled = isVisible;
+    }
 }

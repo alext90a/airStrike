@@ -19,10 +19,7 @@ public class Enemy : Respawnable {
 	
 	// Update is called once per frame
 	protected override void Update () {
-        if(!isServer)
-        {
-            return;
-        }
+
         transform.position += mCurSpeed * Time.deltaTime;
 
         base.Update();
@@ -42,11 +39,13 @@ public class Enemy : Respawnable {
         {
             return;
         }
+        
         if(other.CompareTag(GameConstants.kPlayerTag))
         {
             Health health = other.GetComponent<Health>();
             health.decreaseHealth(GameConstants.kEnemyDamage);
             onZeroHealth();
         }
+        
     }
 }
