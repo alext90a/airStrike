@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        mSpawnManager = GameManager.getInstance().getBulletStore();
 	}
 	
 	// Update is called once per frame
@@ -22,5 +22,6 @@ public class Weapon : MonoBehaviour {
         bullet.activate(transform.position, mSpawnManager);
         bullet.setVelocity(transform.forward * GameConstants.kBulletStartSpeed);
         bullet.setTargetAcquiredFunc(func);
+        bullet.RpcSetVelocity(transform.forward * GameConstants.kBulletStartSpeed);
     }
 }

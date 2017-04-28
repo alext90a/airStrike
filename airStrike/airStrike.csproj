@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\ExplosiveRealPack\Scripts\EffectLight.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\GameConstants.cs" />

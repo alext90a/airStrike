@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Bullet : Respawnable {
@@ -26,6 +27,10 @@ public class Bullet : Respawnable {
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!isServer)
+        {
+            return;
+        }
         if(other.CompareTag(GameConstants.kPlayerTag) || other.CompareTag(GameConstants.kEnemyTag))
         {
             Health health = other.GetComponent<Health>();
@@ -45,8 +50,16 @@ public class Bullet : Respawnable {
         mCurVelocity = velocity;
     }
 
+    [ClientRpc]
+    public void RpcSetVelocity(Vector3 velocity)
+    {
+        mCurVelocity = velocity;
+    }
+
+    
     public void setTargetAcquiredFunc(onTargetAcquired func)
     {
         mTargetAcquiredFunc = func;
     }
+    
 }

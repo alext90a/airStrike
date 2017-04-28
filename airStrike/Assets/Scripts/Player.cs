@@ -53,7 +53,7 @@ public class Player : NetworkBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            mCurWeapon.launchBullet(addScore);
+            CmdLaunchBullet();
         }
 
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -94,5 +94,11 @@ public class Player : NetworkBehaviour {
         
         Debug.Log("New player on server");
         GameManager.getInstance().getEnemyManager().updateEnemyPositions();
+    }
+
+    [Command]
+    void CmdLaunchBullet()
+    {
+        mCurWeapon.launchBullet(addScore);
     }
 }
