@@ -5,6 +5,7 @@ public class Enemy : Respawnable {
 
     [SerializeField]
     Health mHealth = null;
+    
     [SerializeField]
     RespawnableManager mStrikeManager = null;
 

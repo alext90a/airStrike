@@ -4,12 +4,17 @@ using System.Collections;
 
 public class Respawnable : NetworkBehaviour
 {
+    [SerializeField]
+    GameObject mVisualObject = null;
+
     protected RespawnableManager mManager;
 
     //[SyncVar(hook = "OnChangeVisible")]
     [SyncVar]
     bool mIsVisible = false;
-    
+
+
+
     public virtual void activate(Vector3 startPosition, RespawnableManager ownerManager)
     {
         mIsVisible = true;
@@ -18,6 +23,7 @@ public class Respawnable : NetworkBehaviour
         gameObject.transform.position = startPosition;
         mManager = ownerManager;
         RpcChangeVisible(true, startPosition);
+        mVisualObject.SetActive(true);
     }
     protected void deactivate()
     {
@@ -32,6 +38,7 @@ public class Respawnable : NetworkBehaviour
             mManager.setToStore(this);
         }
         RpcChangeVisible(false, transform.position);
+        mVisualObject.SetActive(false);
     }
 
     protected virtual void Update()
@@ -61,5 +68,6 @@ public class Respawnable : NetworkBehaviour
     {
         transform.position = startPosition;
         enabled = isVisible;
+        mVisualObject.SetActive(isVisible);
     }
 }

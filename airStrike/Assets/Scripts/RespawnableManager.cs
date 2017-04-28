@@ -8,6 +8,7 @@ public class RespawnableManager : NetworkBehaviour {
     GameObject mPrefabObj = null;
 
     LinkedList<Respawnable> mObjectStore = new LinkedList<Respawnable>();
+    HashSet<Respawnable> mActiveObjects = new HashSet<Respawnable>();
     private void Awake()
     {
         
@@ -22,11 +23,13 @@ public class RespawnableManager : NetworkBehaviour {
         }
         Respawnable nextObj = mObjectStore.First.Value;
         mObjectStore.RemoveFirst();
+        mActiveObjects.Add(nextObj);
         return nextObj;
     }
 
     public void setToStore(Respawnable obj)
     {
+        mActiveObjects.Remove(obj);
         mObjectStore.AddLast(obj);
     }
 
@@ -43,5 +46,15 @@ public class RespawnableManager : NetworkBehaviour {
     public override void OnStartServer()
     {
         cloningPrefab();
+    }
+
+
+
+    public override void OnStartClient()
+    {
+        if(isServer)
+        {
+            Debug.Log("player connected");
+        }
     }
 }
