@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     Text mPlayerScoreText = null;
     [SerializeField]
     RespawnableManager mStrikeStore = null;
+    [SerializeField]
+    RespawnableManager mEnemyStore = null;
 
     protected static GameManager mInstance = null;
 
@@ -39,5 +41,10 @@ public class GameManager : MonoBehaviour
     public RespawnableManager getStrikeStore()
     {
         return mStrikeStore;
+    }
+
+    public RespawnableManager getEnemyManager()
+    {
+        return mEnemyStore;
     }
 }

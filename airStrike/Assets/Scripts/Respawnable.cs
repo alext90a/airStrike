@@ -64,7 +64,7 @@ public class Respawnable : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcChangeVisible(bool isVisible, Vector3 startPosition)
+    public void RpcChangeVisible(bool isVisible, Vector3 startPosition)
     {
         transform.position = startPosition;
         enabled = isVisible;

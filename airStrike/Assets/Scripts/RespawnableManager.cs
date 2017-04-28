@@ -57,4 +57,13 @@ public class RespawnableManager : NetworkBehaviour {
             Debug.Log("player connected");
         }
     }
+
+    
+    public void updateEnemyPositions()
+    {
+        foreach(var curObje in mActiveObjects)
+        {
+            curObje.RpcChangeVisible(curObje.enabled, curObje.transform.position);
+        }
+    }
 }

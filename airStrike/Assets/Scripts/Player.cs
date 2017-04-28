@@ -79,6 +79,23 @@ public class Player : NetworkBehaviour {
 
     public override void OnStartLocalPlayer()
     {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+        CmdOnNewPlayerOnServer();
+        
         GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+    }
+
+    [Command]
+    void CmdOnNewPlayerOnServer()
+    {
+        if(!isServer)
+        {
+            return;
+        }
+        Debug.Log("New player on server");
+        GameManager.getInstance().getEnemyManager().updateEnemyPositions();
     }
 }
